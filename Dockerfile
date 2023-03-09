@@ -1,4 +1,5 @@
-FROM python:3.9.16-alpine3.17 as base_image
+FROM python:3.9.16
+# -alpine3.17 as base_image
 WORKDIR /usr/src/app
 
 COPY ./src/infer/requirements.txt .
