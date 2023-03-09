@@ -1,0 +1,6 @@
+onnxruntime==1.14.1
+numpy==1.24.2
+Flask==2.2.3
+# uwsgi==2.0.21 # must be python 3.9
+# grpcio==1.51.3
+prometheus-client==0.16.0
