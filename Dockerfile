@@ -5,8 +5,11 @@ WORKDIR /usr/src/app
 COPY ./src/infer/requirements.txt .
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN python3 -m spacy download en_core_web_sm
 
-COPY ./src/infer .
+ENV MODEL_VERSION='roberta'
+
+COPY ./src/infer_basic .
 
 EXPOSE 5000
 

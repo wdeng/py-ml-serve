@@ -1,0 +1,37 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: question-answering
+  labels:
+    app: question-answering
+spec:
+  selector:
+    app: question-answering
+  ports:
+  - name: web
+    port: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: question-answering
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: question-answering
+  template:
+    metadata:
+      labels:
+        app: question-answering
+    spec:
+      containers:
+      - name: question-answering
+        image: ghcr.io/wdeng/qa:dev
+        imagePullPolicy: Always
+        ports:
+        - name: web
+          containerPort: 8080
+        env:
+        - name: HELLO
+          value: 'not much'
