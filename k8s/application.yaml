@@ -27,11 +27,18 @@ spec:
     spec:
       containers:
       - name: question-answering
-        image: ghcr.io/wdeng/qa:dev
+        image: ghcr.io/wdeng/py-ml-serve:main
         imagePullPolicy: Always
         ports:
         - name: web
           containerPort: 8080
         env:
-        - name: HELLO
-          value: 'not much'
+        - name: MODEL_VERSION
+          value: 'roberta'
+        resources:   # Set resource limits and requests for the container
+            limits:
+              cpu: 1.80
+              memory: 3Gi
+            requests:
+              cpu: 1.75
+              memory: 2Gi
