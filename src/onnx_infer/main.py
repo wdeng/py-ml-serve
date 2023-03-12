@@ -6,7 +6,7 @@ import json
 
 from flask import Flask, jsonify, request, Response
 from models import get_qa_predictor
-# from prometheus_client import Histogram, generate_latest, REGISTRY
+# from prometheus_client import Histogram, generate_latest
 
 __version__ = os.getenv('MODEL_VERSION', 'roberta')
 

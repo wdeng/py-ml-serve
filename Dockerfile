@@ -11,8 +11,7 @@ ENV MODEL_VERSION='roberta'
 
 COPY ./src/infer_basic .
 
-EXPOSE 5000
+EXPOSE 8080
 
-CMD ["python3", "main.py"]
-# CMD ["uwsgi", "--http", "127.0.0.1:8080" "--wsgi-file" "main.py" "--callable" "app"]
-# CMD ["uwsgi", "--http", "127.0.0.1:8080" "--wsgi-file" "main.py" "--callable" "app", "--threads", "2"]
+# CMD ["python3", "main.py"]
+CMD ["uwsgi", "--http", "127.0.0.1:8080" "--wsgi-file" "main.py" "--callable" "app", "--threads", "2"]
