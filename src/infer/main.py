@@ -1,9 +1,21 @@
+# https://github.com/microsoft/onnxruntime/issues/11156
 import logging
 from flask import Flask
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 from prometheus_client import make_wsgi_app
+# TODO:
+# jupyter test
+# eval accuracy, time
+# pytest
+# logging
+# prometheus monitoring
+# exception handling
+
+
 logging.basicConfig(level=logging.INFO)
-logging.info("Setting LOGLEVEL to INFO")
+logger = logging.getLogger("")
+logger.info("Setting LOGLEVEL to INFO")
+
 # Create my app
 app = Flask(__name__)
 
