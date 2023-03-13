@@ -1,0 +1,1 @@
+from .question_answering import get_qa_predictor
