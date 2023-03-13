@@ -17,9 +17,9 @@ __version__ = os.getenv('MODEL_VERSION', 'roberta')
 # )
 
 logging.basicConfig(
-  filename='app.log',
-  level=logging.INFO,
-  format='%(asctime)s %(levelname)s %(name)s: %(message)s'
+    filename='app.log',
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(name)s: %(message)s'
 )
 logging.info("Setting LOGLEVEL to INFO")
 
@@ -134,7 +134,7 @@ def metrics():
     For Prometheus monitoring metrics
     """
     # return Response(generate_latest(REGISTRY), mimetype='text/plain')
-    return Response('hi', mimetype='text/plain')
+    return Response('test', mimetype='text/plain')
 
 
 @app.route("/health")
