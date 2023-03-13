@@ -10,14 +10,14 @@ spec:
   ports:
   - name: web
     port: 8080
-  type: LoadBalancer
+  # type: LoadBalancer # by Will: could expose to external traffic with AWS LB
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: question-answering
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: question-answering
@@ -39,7 +39,7 @@ spec:
         resources:
             limits:
               cpu: 1.8
-              memory: 1800Mi
+              memory: 1500Mi
             requests:
               cpu: 1.5
-              memory: 1550Mi
+              memory: 1500Mi
