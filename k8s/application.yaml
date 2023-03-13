@@ -37,8 +37,8 @@ spec:
           value: 'roberta'
         resources:   # Set resource limits and requests for the container
             limits:
-              cpu: 1.80
-              memory: 3Gi
+              cpu: 1.8
+              memory: 1800Mi
             requests:
-              cpu: 1.75
-              memory: 2Gi
+              cpu: 1.5
+              memory: 1650Mi
