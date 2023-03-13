@@ -3,6 +3,10 @@ FROM python:3.9.16-slim
 WORKDIR /usr/src/app
 
 COPY ./src/infer_basic/requirements.txt .
+#required for uwisgi
+RUN apt update
+RUN apt install gcc
+
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN python3 -m spacy download en_core_web_sm
