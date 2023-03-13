@@ -37,8 +37,8 @@ class QAPredictor:
     def sentencize(self, text):
         return [str(s) for s in self.nlp(text).sents]
 
-    def question_answering(self, question, context, clean=True):
-        if clean:
+    def question_answering(self, question, context, cleanup_context=True):
+        if cleanup_context:
             context = self.clean_text(context)
         res = self.pipeline({'question': question, 'context': context})
 

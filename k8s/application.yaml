@@ -10,13 +10,14 @@ spec:
   ports:
   - name: web
     port: 8080
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: question-answering
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: question-answering
@@ -35,10 +36,10 @@ spec:
         env:
         - name: MODEL_VERSION
           value: 'roberta'
-        resources:   # Set resource limits and requests for the container
+        resources:
             limits:
               cpu: 1.8
               memory: 1800Mi
             requests:
               cpu: 1.5
-              memory: 1650Mi
+              memory: 1550Mi

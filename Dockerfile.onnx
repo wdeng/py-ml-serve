@@ -32,4 +32,4 @@ COPY ./src/onnx_infer .
 EXPOSE 8080
 
 # CMD ["python3", "main.py"]
-CMD ["uwsgi", "--http", "127.0.0.1:8080", "--wsgi-file", "main.py", "--callable" "app", "--threads", "2"]
+CMD ["uwsgi", "--http", "127.0.0.1:8080", "--wsgi-file", "main.py", "--callable" "app"]

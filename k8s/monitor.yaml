@@ -23,5 +23,5 @@ spec:
       release: nlp-pipeline
   resources:
     requests:
-      memory: 400Mi
+      memory: 300Mi
   enableAdminAPI: false

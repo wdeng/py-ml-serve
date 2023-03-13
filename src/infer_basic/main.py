@@ -1,4 +1,3 @@
-# https://github.com/microsoft/onnxruntime/issues/11156
 import logging
 import os
 import time
@@ -6,15 +5,10 @@ import json
 
 from flask import Flask, jsonify, request, Response
 from models import get_qa_predictor
-# from prometheus_client import Histogram, generate_latest, REGISTRY
+from monitor import CustomMetrics
+from prometheus_client import generate_latest, REGISTRY
 
 __version__ = os.getenv('MODEL_VERSION', 'roberta')
-
-# endpoint_latency = Histogram(
-#     "endpoint_latency_seconds",
-#     f"Latency for endpoints {MODEL_VERSION} model",
-#     ["endpoint"],
-# )
 
 logging.basicConfig(
     filename='app.log',
@@ -26,6 +20,9 @@ logging.info("Setting LOGLEVEL to INFO")
 # Create my app
 qa_predictor = get_qa_predictor()
 app = Flask(__name__)
+# Setup Prometheus monitoring metrics
+prom_metrics = CustomMetrics()
+# REGISTRY.register(prom_metrics)
 
 
 @app.before_request
@@ -39,8 +36,9 @@ def after_request(response):
         return response
     data = response.get_json()
     _time = time.time() - request.start_time
+
     # add metrics for Prometheus
-    # endpoint_latency.labels(request.path).observe(latency)
+    prom_metrics.label(request, response, _time)
 
     # add metadata to all the request
     payload = {
@@ -133,8 +131,7 @@ def metrics():
     """
     For Prometheus monitoring metrics
     """
-    # return Response(generate_latest(REGISTRY), mimetype='text/plain')
-    return Response('test', mimetype='text/plain')
+    return Response(generate_latest(REGISTRY), mimetype='text/plain')
 
 
 @app.route("/health")
@@ -146,5 +143,5 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port='8080')
 # uwsgi --http 127.0.0.1:8080 --wsgi-file main.py --callable app --threads 4
