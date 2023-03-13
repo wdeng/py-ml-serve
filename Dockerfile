@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY ./src/infer_basic/requirements.txt .
 #required for uwisgi
 RUN apt update
-RUN apt install gcc
+RUN apt install gcc -y
 
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir -r requirements.txt
