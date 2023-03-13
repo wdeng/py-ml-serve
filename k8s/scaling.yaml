@@ -9,4 +9,4 @@ spec:
     name: question-answering
   minReplicas: 1   # min
   maxReplicas: 10   # max
-  targetCPUUtilizationPercentage: 70   # Set the target CPU utilization percentage
+  targetCPUUtilizationPercentage: 60   # Set the target CPU utilization percentage
