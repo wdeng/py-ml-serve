@@ -1,0 +1,32 @@
+# ---- Base Python ----
+FROM python:3.9.16-slim as base
+WORKDIR /usr/src/app
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --upgrade pip
+
+# ---- Compile Model ----
+FROM base as model_compiler
+COPY ./src/onnx_deploy/requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+COPY ./src/onnx_deploy .
+RUN python3 main.py
+
+# ---- Inference Model ----
+FROM base
+LABEL author="Will Deng"
+LABEL author-email="dengwenxiang@gmail.com"
+
+COPY ./src/onnx_infer/requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN python3 -m spacy download en_core_web_sm
+
+COPY --from=model_compiler /usr/src/app/qa_model ./qa_model
+COPY --from=model_compiler /usr/src/app/qa_tokenizer ./qa_tokenizer
+
+ENV MODEL_VERSION='roberta_onnx'
+
+COPY ./src/onnx_infer .
+
+EXPOSE 8080
+
+CMD ["uwsgi", "--http", "0.0.0.0:8080", "--wsgi-file", "main.py", "--callable", "app"]
