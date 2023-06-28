@@ -18,8 +18,7 @@ LABEL author-email="dengwenxiang@gmail.com"
 WORKDIR /usr/src/app
 
 # required for uwsigi
-RUN apt update
-RUN apt install gcc -y
+RUN apt update && apt install gcc -y
 
 COPY ./src/onnx_infer/requirements.txt .
 RUN pip3 install --upgrade pip
